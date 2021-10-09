@@ -110,7 +110,7 @@ class TodoListViewController: UITableViewController {
         tableView.reloadData()
     }
     
-    func loadItems() {
+    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest()) {
 //        if let data = try? Data(contentsOf: dataFilePath!) {
 //            let decoder = PropertyListDecoder()
 //            do {
@@ -119,12 +119,14 @@ class TodoListViewController: UITableViewController {
 //                print("Error decoding item array, \(error)")
 //            }
 //        }
-        let request: NSFetchRequest<Item> = Item.fetchRequest()
+        
         do {
             itemArray = try context.fetch(request)
         } catch {
             print("Error fetching data from context, \(error)")
         }
+        
+        tableView.reloadData()
     }
     
     func deletItem(at index: Int) {
@@ -133,3 +135,27 @@ class TodoListViewController: UITableViewController {
     }
 }
 
+
+// MARK - SearchBar Methods
+extension TodoListViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        let request: NSFetchRequest<Item> = Item.fetchRequest()
+        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
+        
+        request.predicate = predicate
+        
+        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+        
+        loadItems(with: request)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.isEmpty ?? false {
+            loadItems()
+            DispatchQueue.main.async {
+                // Notify this object that it has been asked to relinquish its status as first responder in its window.
+                searchBar.resignFirstResponder()
+            }
+        }
+    }
+}
