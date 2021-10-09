@@ -18,9 +18,16 @@ class TodoListViewController: UITableViewController {
     
     var itemArray = [Item]()
     
+    var selectedCategory: Category? {
+        didSet {
+            loadItems()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = selectedCategory?.name
 //        if let items = defaults.array(forKey: "ToDoListArray") as? [Item] {
 //            itemArray = items
 //        }
@@ -28,7 +35,6 @@ class TodoListViewController: UITableViewController {
 //        if let data = UserDefaults.standard.value(forKey:"ToDoListArray") as? Data {
 //            itemArray = try! PropertyListDecoder().decode([Item].self, from: data)
 //        }
-        loadItems()
     }
     
     // MARK - TableView DataSource Methods
@@ -72,6 +78,7 @@ class TodoListViewController: UITableViewController {
                 let newItem = Item(context: self.context)
                 newItem.title = textField.text!
                 newItem.done = false
+                newItem.parentCategory = self.selectedCategory
                 self.itemArray.append(newItem)
 //                self.defaults.setValue(self.itemArray, forKey: "ToDoListArray")
 //                self.defaults.set(try? PropertyListEncoder().encode(self.itemArray), forKey: "ToDoListArray")
@@ -93,6 +100,8 @@ class TodoListViewController: UITableViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    // MARK- Data Manipulation Methods
+    
     func saveItems() {
 //        let encoder = PropertyListEncoder()
 //        do {
@@ -110,7 +119,7 @@ class TodoListViewController: UITableViewController {
         tableView.reloadData()
     }
     
-    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest()) {
+    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest(), predicate: NSPredicate? = nil) {
 //        if let data = try? Data(contentsOf: dataFilePath!) {
 //            let decoder = PropertyListDecoder()
 //            do {
@@ -119,6 +128,15 @@ class TodoListViewController: UITableViewController {
 //                print("Error decoding item array, \(error)")
 //            }
 //        }
+        let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
+        
+        if let additionalPredicate = predicate {
+            let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [additionalPredicate, categoryPredicate])
+            
+            request.predicate = compoundPredicate
+        } else {
+            request.predicate = categoryPredicate
+        }
         
         do {
             itemArray = try context.fetch(request)
@@ -132,6 +150,7 @@ class TodoListViewController: UITableViewController {
     func deletItem(at index: Int) {
         context.delete(itemArray[index])
         itemArray.remove(at: index)
+        saveItems()
     }
 }
 
@@ -142,11 +161,11 @@ extension TodoListViewController: UISearchBarDelegate {
         let request: NSFetchRequest<Item> = Item.fetchRequest()
         let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
         
-        request.predicate = predicate
+//        request.predicate = predicate
         
         request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
         
-        loadItems(with: request)
+        loadItems(with: request, predicate: predicate)
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
