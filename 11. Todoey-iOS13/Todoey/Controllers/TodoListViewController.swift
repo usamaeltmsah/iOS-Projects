@@ -52,10 +52,9 @@ class TodoListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         itemArray[indexPath.row].done.toggle()
-        
         saveItems()
         
-        tableView.reloadRows(at: [indexPath], with: .automatic)
+//        tableView.reloadRows(at: [indexPath], with: .automatic)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -108,6 +107,7 @@ class TodoListViewController: UITableViewController {
         } catch {
             print("Error saving context, \(error)")
         }
+        tableView.reloadData()
     }
     
     func loadItems() {
@@ -125,6 +125,11 @@ class TodoListViewController: UITableViewController {
         } catch {
             print("Error fetching data from context, \(error)")
         }
+    }
+    
+    func deletItem(at index: Int) {
+        context.delete(itemArray[index])
+        itemArray.remove(at: index)
     }
 }
 
