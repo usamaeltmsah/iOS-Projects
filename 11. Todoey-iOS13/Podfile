@@ -8,5 +8,9 @@ target 'Todoey' do
   pod 'Realm', :modular_headers => true
   pod 'RealmSwift', :modular_headers => true
 
+<<<<<<< HEAD
+=======
+  pod 'SwipeCellKit'
+>>>>>>> main
 
 end
