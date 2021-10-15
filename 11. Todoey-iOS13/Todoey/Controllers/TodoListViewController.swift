@@ -73,6 +73,7 @@ class TodoListViewController: UITableViewController {
             if textField.text != "" {
                 let newItem = Item()
                 newItem.title = textField.text!
+                newItem.dateCreated = Date()
                 
                 self.saveItems(item: newItem)
             }
@@ -142,7 +143,7 @@ class TodoListViewController: UITableViewController {
 // MARK - SearchBar Methods
 extension TodoListViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        todoItems = todoItems?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "title", ascending: true)
+        todoItems = todoItems?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "dateCreated", ascending: true)
         
         tableView.reloadData()
     }
