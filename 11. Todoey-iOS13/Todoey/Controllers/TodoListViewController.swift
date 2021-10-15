@@ -123,9 +123,15 @@ class TodoListViewController: UITableViewController {
     }
     
     func deletItem(at index: Int) {
-//        context.delete(todoItems[index])
-//        todoItems.remove(at: index)
-//        saveItems()
+        if let item = todoItems?[index] {
+            do {
+                try realm.write {
+                    realm.delete(item)
+                }
+            } catch {
+                print("Error deleting item, \(error)")
+            }
+        }
     }
 }
 
