@@ -7,3 +7,10 @@
 //
 
 import Foundation
+import RealmSwift
+
+class Category: Object {
+    @objc dynamic var name: String = ""
+    // The forward relationship
+    let items = List<Item>()
+}
