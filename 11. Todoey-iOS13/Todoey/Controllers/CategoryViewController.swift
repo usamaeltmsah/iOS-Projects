@@ -26,6 +26,14 @@ class CategoryViewController: SwipeTableViewController {
         tableView.separatorStyle = .none
         tableView.rowHeight = 80.0
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        guard let navBar = navigationController?.navigationBar else {
+            fatalError("Navigation Controller doesn't exist.")
+        }
+        
+        navBar.backgroundColor = UIColor(hexString: "1D9BF6")
+    }
 
     
     // MARK - TableView DataSource Methods
@@ -38,8 +46,12 @@ class CategoryViewController: SwipeTableViewController {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         if let category = categories?[indexPath.row] {
             cell.textLabel?.text = category.name 
-                
-            cell.backgroundColor = UIColor(hexString: category.color )
+            
+            guard let categoryColor = UIColor(hexString: category.color) else {
+                fatalError()
+            }
+            cell.backgroundColor = categoryColor
+            cell.textLabel?.textColor = ContrastColorOf(categoryColor, returnFlat: true)
         }
         cell.accessoryType = .disclosureIndicator
         

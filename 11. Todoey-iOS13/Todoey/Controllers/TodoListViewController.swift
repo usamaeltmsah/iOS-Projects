@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
 class TodoListViewController: SwipeTableViewController {
 
@@ -24,11 +25,34 @@ class TodoListViewController: SwipeTableViewController {
         }
     }
     
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = selectedCategory?.name
+        
+        tableView.separatorStyle = .none
         tableView.rowHeight = 80.0
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let colorHex = selectedCategory?.color {
+            guard let navBar = navigationController?.navigationBar else {
+                fatalError("Navigation Controller Doesn't exist")
+            }
+            if let navBarColor = UIColor(hexString: colorHex) {
+                navBar.backgroundColor = navBarColor
+                navBar.barTintColor = navBarColor
+                navBar.tintColor = ContrastColorOf(navBarColor, returnFlat: true)
+                navBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : navBar.tintColor!]
+                navBar.largeTitleTextAttributes = navBar.titleTextAttributes
+                
+                searchBar.barTintColor = UIColor(hexString: colorHex)
+                searchBar.searchTextField.backgroundColor = navBar.tintColor
+                searchBar.searchTextField.textColor = navBarColor
+            }
+        }
     }
     
     // MARK - TableView DataSource Methods
@@ -41,6 +65,11 @@ class TodoListViewController: SwipeTableViewController {
         
         if let item = todoItems?[indexPath.row] {
             cell.textLabel?.text = item.title
+            
+            if let color = UIColor(hexString: selectedCategory!.color)?.darken(byPercentage: CGFloat(indexPath.row) / CGFloat(todoItems!.count)) {
+                cell.backgroundColor = color
+                cell.textLabel?.textColor = ContrastColorOf(color, returnFlat: true)
+            }
             
             // Teranaty Operator ===>
             // value = condition ? valueIfTrue : valueIfFalse
