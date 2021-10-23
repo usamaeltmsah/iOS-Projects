@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		19133E3D271905FE00EDB4DB /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19133E3C271905FE00EDB4DB /* Category.swift */; };
+		19133E3F2719066400EDB4DB /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19133E3E2719066400EDB4DB /* Item.swift */; };
+		1921AF322719E02C005E7F06 /* SwipeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1921AF312719E02C005E7F06 /* SwipeTableViewController.swift */; };
+		19CC978F2711E9FD00FB7B5C /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19CC978E2711E9FD00FB7B5C /* CategoryViewController.swift */; };
+		7AFD5E397082ED683AFF4DD9 /* libPods-Todoey.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FF1FBC3E6F562F43AB508B4 /* libPods-Todoey.a */; };
+
 		19CC978F2711E9FD00FB7B5C /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19CC978E2711E9FD00FB7B5C /* CategoryViewController.swift */; };
 		19ECE3B72713712800EFDDCD /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19ECE3B62713712800EFDDCD /* Item.swift */; };
 		19ECE3B92713713200EFDDCD /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19ECE3B82713713200EFDDCD /* Category.swift */; };
@@ -19,6 +25,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		19133E3C271905FE00EDB4DB /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		19133E3E2719066400EDB4DB /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		1921AF312719E02C005E7F06 /* SwipeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeTableViewController.swift; sourceTree = "<group>"; };
+		19CC978E2711E9FD00FB7B5C /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+
 		19CC978E2711E9FD00FB7B5C /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		19ECE3B62713712800EFDDCD /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		19ECE3B82713713200EFDDCD /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
@@ -58,8 +69,8 @@
 		1980CF1C270E185000F46047 /* Data Model */ = {
 			isa = PBXGroup;
 			children = (
-				19ECE3B62713712800EFDDCD /* Item.swift */,
-				19ECE3B82713713200EFDDCD /* Category.swift */,
+				19133E3C271905FE00EDB4DB /* Category.swift */,
+				19133E3E2719066400EDB4DB /* Item.swift */,
 			);
 			path = "Data Model";
 			sourceTree = "<group>";
@@ -69,6 +80,7 @@
 			children = (
 				EB2BE4FD239524DB00FB933B /* TodoListViewController.swift */,
 				19CC978E2711E9FD00FB7B5C /* CategoryViewController.swift */,
+				1921AF312719E02C005E7F06 /* SwipeTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -90,12 +102,21 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		19A22665E05EF0B2BE1EFAB1 /* Frameworks */ = {
+		5BB07BAE2AEBAE1966661487 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8A045B323895D1E815015C57 /* libPods-Todoey.a */,
+				5FF1FBC3E6F562F43AB508B4 /* libPods-Todoey.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C6E713D12BC77650AEA77D82 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				65617A74C5F19E0EA4D8E347 /* Pods-Todoey.debug.xcconfig */,
+				272324F2DC2135E285CDB4A7 /* Pods-Todoey.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		EB2BE4ED239524DB00FB933B = {
@@ -103,10 +124,14 @@
 			children = (
 				EB2BE4F8239524DB00FB933B /* Todoey */,
 				EB2BE4F7239524DB00FB933B /* Products */,
+
+				C6E713D12BC77650AEA77D82 /* Pods */,
+				5BB07BAE2AEBAE1966661487 /* Frameworks */,
+				C193EB85C5A0C734F731032A /* Pods */,
+				FB7C69A7B12FC2ED94B131A1 /* Frameworks */,
 				00EA66567E286D3BA23B547C /* Pods */,
 				19A22665E05EF0B2BE1EFAB1 /* Frameworks */,
 			);
-			sourceTree = "<group>";
 		};
 		EB2BE4F7239524DB00FB933B /* Products */ = {
 			isa = PBXGroup;
@@ -129,6 +154,14 @@
 			path = Todoey;
 			sourceTree = "<group>";
 		};
+		FB7C69A7B12FC2ED94B131A1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7B9859E16F1A9B6BDE1EF615 /* libPods-Todoey.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -136,7 +169,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EB2BE50A239524DC00FB933B /* Build configuration list for PBXNativeTarget "Todoey" */;
 			buildPhases = (
-				A9579B31B8B5CCB659CDF63B /* [CP] Check Pods Manifest.lock */,
 				EB2BE4F2239524DB00FB933B /* Sources */,
 				EB2BE4F3239524DB00FB933B /* Frameworks */,
 				EB2BE4F4239524DB00FB933B /* Resources */,
@@ -226,11 +258,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				19ECE3B72713712800EFDDCD /* Item.swift in Sources */,
+				19133E3F2719066400EDB4DB /* Item.swift in Sources */,
 				19CC978F2711E9FD00FB7B5C /* CategoryViewController.swift in Sources */,
 				EB2BE4FE239524DB00FB933B /* TodoListViewController.swift in Sources */,
 				EB2BE4FA239524DB00FB933B /* AppDelegate.swift in Sources */,
-				19ECE3B92713713200EFDDCD /* Category.swift in Sources */,
+				1921AF322719E02C005E7F06 /* SwipeTableViewController.swift in Sources */,
+				19133E3D271905FE00EDB4DB /* Category.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,7 +426,6 @@
 		};
 		EB2BE50C239524DC00FB933B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9BCE9F1D077353A7555DAAB2 /* Pods-Todoey.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

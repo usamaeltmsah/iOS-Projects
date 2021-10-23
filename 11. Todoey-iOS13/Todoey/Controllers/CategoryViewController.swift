@@ -8,8 +8,9 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
-class CategoryViewController: UITableViewController {
+class CategoryViewController: SwipeTableViewController {
     
     let realm = try! Realm()
     
@@ -21,6 +22,17 @@ class CategoryViewController: UITableViewController {
         super.viewDidLoad()
 
         loadCategories()
+        
+        tableView.separatorStyle = .none
+        tableView.rowHeight = 80.0
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        guard let navBar = navigationController?.navigationBar else {
+            fatalError("Navigation Controller doesn't exist.")
+        }
+        
+        navBar.backgroundColor = UIColor(hexString: "1D9BF6")
     }
 
     
@@ -31,9 +43,17 @@ class CategoryViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
-        
-        cell.textLabel?.text = categories?[indexPath.row].name ?? "No Categories Added yet"
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
+        if let category = categories?[indexPath.row] {
+            cell.textLabel?.text = category.name 
+            
+            guard let categoryColor = UIColor(hexString: category.color) else {
+                fatalError()
+            }
+            cell.backgroundColor = categoryColor
+            cell.textLabel?.textColor = ContrastColorOf(categoryColor, returnFlat: true)
+        }
+        cell.accessoryType = .disclosureIndicator
         
         return cell
     }
@@ -57,10 +77,20 @@ class CategoryViewController: UITableViewController {
         tableView.reloadData()
     }
     
-    func deleteCategory(at index: Int) {
-//        context.delete(categories[index])
-//        categories.remove(at: index)
-//        saveCategories()
+    override func updateModel(at indexPath: IndexPath) {
+        deleteCategory(at: indexPath)
+    }
+    
+    func deleteCategory(at index: IndexPath) {
+        if let category = categories?[index.row] {
+            do {
+                try realm.write {
+                    realm.delete(category)
+                }
+            } catch {
+                print("Error deleting category, \(error)")
+            }
+        }
     }
     
     // MARK - Add New Categories
@@ -75,9 +105,8 @@ class CategoryViewController: UITableViewController {
             if textField.text != "" {
                 let newCategory = Category()
                 newCategory.name = textField.text!
-                
+                newCategory.color = UIColor.randomFlat().hexValue()
                 // We don't need to append category any more as the "Result" data-type is auto updated container.
-                
                 self.saveCategories(category: newCategory)
             }
             
