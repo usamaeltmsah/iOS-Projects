@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import ChameleonFramework
+import SwipeCellKit
 
 class TodoListViewController: SwipeTableViewController {
 
@@ -31,7 +32,6 @@ class TodoListViewController: SwipeTableViewController {
         super.viewDidLoad()
         
         title = selectedCategory?.name
-        
         tableView.separatorStyle = .none
         tableView.rowHeight = 80.0
     }
@@ -70,7 +70,6 @@ class TodoListViewController: SwipeTableViewController {
                 cell.backgroundColor = color
                 cell.textLabel?.textColor = ContrastColorOf(color, returnFlat: true)
             }
-            
             // Teranaty Operator ===>
             // value = condition ? valueIfTrue : valueIfFalse
             

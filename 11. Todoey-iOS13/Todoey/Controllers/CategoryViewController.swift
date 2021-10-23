@@ -107,7 +107,6 @@ class CategoryViewController: SwipeTableViewController {
                 newCategory.name = textField.text!
                 newCategory.color = UIColor.randomFlat().hexValue()
                 // We don't need to append category any more as the "Result" data-type is auto updated container.
-                
                 self.saveCategories(category: newCategory)
             }
             
