@@ -66,6 +66,29 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Pause the view's session
         sceneView.session.pause()
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touch = touches.first {
+            let touchLocation = touch.location(in: sceneView)
+            
+            // Convert the touch's location to 3D
+            let results = sceneView.hitTest(touchLocation, types: .existingPlaneUsingExtent)
+            
+            if let hitResult = results.first {
+                let diceScene = SCNScene(named: "art.scnassets/diceCollada.scn")!
+        
+                // recursively = true, get the childs from the subtree, if there is
+                if let diceNode = diceScene.rootNode.childNode(withName: "Dice", recursively: true) {
+                    diceNode.position = SCNVector3(
+                        hitResult.worldTransform.columns.3.x,
+                        hitResult.worldTransform.columns.3.y + diceNode.boundingSphere.radius,
+                        hitResult.worldTransform.columns.3.z
+                    )
+                    sceneView.scene.rootNode.addChildNode(diceNode)
+                }
+            }
+        }
+    }
 
     // MARK: - ARSCNViewDelegate
     
