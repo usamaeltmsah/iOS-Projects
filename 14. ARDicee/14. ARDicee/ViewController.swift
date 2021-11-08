@@ -103,6 +103,13 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             }
         }
     }
+    @IBAction func removeAllDice(_ sender: UIBarButtonItem) {
+        if !diceArray.isEmpty {
+            for dice in diceArray {
+                dice.removeFromParentNode()
+            }
+        }
+    }
     
     func roll(dice: SCNNode) {
         // We need to rotate it along the x axis, and have all 4 faces showing upequally likely.
