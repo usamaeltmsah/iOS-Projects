@@ -38,4 +38,28 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Pause the view's session
         sceneView.session.pause()
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touch = touches.first {
+            let touchLocation = touch.location(in: sceneView)
+            
+            let hitTestResults = sceneView.hitTest(touchLocation, types: .featurePoint)
+            
+            if let hitResult = hitTestResults.first {
+                addDot(at: hitResult)
+            }
+        }
+    }
+    
+    func addDot(at hitResult: ARHitTestResult) {
+        let dotGeometrey = SCNSphere(radius: 0.005)
+        let material = SCNMaterial()
+        material.diffuse.contents = UIColor.red
+        dotGeometrey.materials = [material]
+        
+        let dotNode = SCNNode(geometry: dotGeometrey)
+        dotNode.position = SCNVector3(hitResult.worldTransform.columns.3.x, hitResult.worldTransform.columns.3.y, hitResult.worldTransform.columns.3.z)
+        
+        sceneView.scene.rootNode.addChildNode(dotNode)
+    }
 }
