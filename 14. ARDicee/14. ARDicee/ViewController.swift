@@ -85,6 +85,18 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                         hitResult.worldTransform.columns.3.z
                     )
                     sceneView.scene.rootNode.addChildNode(diceNode)
+                    
+                    // We need to rotate it along the x axis, and have all 4 faces showing upequally likely.
+                    // Float.pi / 2 => Rotate 90 degrees to give us a new face
+                    let randomX = Float(arc4random_uniform(4) + 1) * (Float.pi / 2)
+                    let randomZ = Float(arc4random_uniform(4) + 1) * (Float.pi / 2)
+                    
+                    diceNode.runAction(SCNAction.rotateBy(
+                        x: CGFloat(randomX * 5),
+                        y: 0,
+                        z: CGFloat(randomZ * 5),
+                        duration: 0.5)
+                    )
                 }
             }
         }
