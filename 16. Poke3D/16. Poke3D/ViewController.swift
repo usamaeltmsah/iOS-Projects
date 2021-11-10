@@ -54,7 +54,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
         let node = SCNNode()
-        var selectedPokemon: String!
         guard let imageAnchor = anchor as? ARImageAnchor else { return nil }
         
         let plane = SCNPlane(width: imageAnchor.referenceImage.physicalSize.width, height: imageAnchor.referenceImage.physicalSize.height)
@@ -67,14 +66,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         node.addChildNode(planeNode)
         
-        if imageAnchor.referenceImage.name == "evee-card" {
-            selectedPokemon = "eevee.scn"
-        } else if imageAnchor.referenceImage.name == "oddish-card" {
-            selectedPokemon = "oddish.scn"
-        }
-        
-        if imageAnchor.referenceImage.name == "evee-card" {
-            let pokeNode = showPokemon(selectedPokemon: "evee-card")
+        if imageAnchor.referenceImage.name == "eevee-card" {
+            let pokeNode = showPokemon(selectedPokemon: "eevee-card")
             planeNode.addChildNode(pokeNode)
         }
         
@@ -87,9 +80,15 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
     func showPokemon(selectedPokemon: String) -> SCNNode {
-        if let pokeScene = SCNScene(named: "art.scnassets/\(selectedPokemon)") {
+        let scnFile: String!
+        if selectedPokemon == "oddish-card" {
+            scnFile = "oddish.scn"
+        } else {
+            scnFile = "eevee.scn"
+        }
+        if let pokeScene = SCNScene(named: "art.scnassets/\(scnFile!)") {
             if let pokeNode = pokeScene.rootNode.childNodes.first {
-                pokeNode.eulerAngles.y = -.pi/2
+                pokeNode.eulerAngles.x = -.pi/2
                 return pokeNode
             }
         }
