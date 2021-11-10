@@ -13,6 +13,7 @@
 		19BDA669273C795F005445BF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19BDA667273C795F005445BF /* Main.storyboard */; };
 		19BDA66B273C7966005445BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 19BDA66A273C7966005445BF /* Assets.xcassets */; };
 		19BDA66E273C7966005445BF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19BDA66C273C7966005445BF /* LaunchScreen.storyboard */; };
+		19BDA675273C79F6005445BF /* harry potter.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 19BDA674273C79F6005445BF /* harry potter.mp4 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		19BDA668273C795F005445BF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		19BDA66A273C7966005445BF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		19BDA66D273C7966005445BF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		19BDA674273C79F6005445BF /* harry potter.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "harry potter.mp4"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +57,7 @@
 		19BDA660273C795F005445BF /* 17. MagicPaper */ = {
 			isa = PBXGroup;
 			children = (
+				19BDA674273C79F6005445BF /* harry potter.mp4 */,
 				19BDA661273C795F005445BF /* AppDelegate.swift */,
 				19BDA663273C795F005445BF /* art.scnassets */,
 				19BDA665273C795F005445BF /* ViewController.swift */,
@@ -127,6 +130,7 @@
 				19BDA66E273C7966005445BF /* LaunchScreen.storyboard in Resources */,
 				19BDA66B273C7966005445BF /* Assets.xcassets in Resources */,
 				19BDA669273C795F005445BF /* Main.storyboard in Resources */,
+				19BDA675273C79F6005445BF /* harry potter.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
