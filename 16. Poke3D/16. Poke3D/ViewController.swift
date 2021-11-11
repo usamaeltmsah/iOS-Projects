@@ -21,6 +21,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
+        
+        sceneView.autoenablesDefaultLighting = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -32,7 +34,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         if let imageToTrack = ARReferenceImage.referenceImages(inGroupNamed: "Pokemon Cards", bundle: Bundle.main) {
             configuration.trackingImages = imageToTrack
             
-            configuration.maximumNumberOfTrackedImages = 1
+            configuration.maximumNumberOfTrackedImages = 2
             
             print("Images Successfully Added")
         }
@@ -52,7 +54,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
         let node = SCNNode()
-        
         guard let imageAnchor = anchor as? ARImageAnchor else { return nil }
         
         let plane = SCNPlane(width: imageAnchor.referenceImage.physicalSize.width, height: imageAnchor.referenceImage.physicalSize.height)
@@ -61,10 +62,36 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         let planeNode = SCNNode(geometry: plane)
         
-        planeNode.eulerAngles.x = -.pi / 2
+        planeNode.eulerAngles.x = .pi / 2
         
         node.addChildNode(planeNode)
         
+        if imageAnchor.referenceImage.name == "eevee-card" {
+            let pokeNode = showPokemon(selectedPokemon: "eevee-card")
+            planeNode.addChildNode(pokeNode)
+        }
+        
+        if imageAnchor.referenceImage.name == "oddish-card" {
+            let pokeNode = showPokemon(selectedPokemon: "oddish-card")
+            planeNode.addChildNode(pokeNode)
+        }
+        
         return node
+    }
+    
+    func showPokemon(selectedPokemon: String) -> SCNNode {
+        let scnFile: String!
+        if selectedPokemon == "oddish-card" {
+            scnFile = "oddish.scn"
+        } else {
+            scnFile = "eevee.scn"
+        }
+        if let pokeScene = SCNScene(named: "art.scnassets/\(scnFile!)") {
+            if let pokeNode = pokeScene.rootNode.childNodes.first {
+                pokeNode.eulerAngles.x = -.pi/2
+                return pokeNode
+            }
+        }
+        return SCNNode()
     }
 }
